@@ -45,11 +45,24 @@
             </mat-slider>
         </p>
 
-        <p>
+        <mat-form-field>
+            <mat-label>SVG Code</mat-label>
+            <textarea matInput
+                      formControlName='svg'
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="10"
+                      cdkAutosizeMaxRows="10"></textarea>
+        </mat-form-field>
 
+        <p>
+            <button mat-raised-button color='primary'>Generate!</button>
         </p>
-        <button mat-raised-button color='primary'>Generate!</button>
     </form>
+
+    <p>
+        <button mat-raised-button color='primary' (click)='onSerializeToSVG($event)'>To SVG</button>
+    </p>
 </mat-card>
 
 <canvas

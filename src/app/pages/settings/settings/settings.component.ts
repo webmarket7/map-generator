@@ -29,7 +29,8 @@ export class SettingsComponent implements AfterViewInit {
             columns: [50, [Validators.required]],
             rows: [50, [Validators.required]],
             density: [55, [Validators.required]],
-            iterations: [25000, [Validators.required]]
+            iterations: [25000, [Validators.required]],
+            svg: ['']
         });
     }
 
@@ -55,5 +56,10 @@ export class SettingsComponent implements AfterViewInit {
 
         cave.draw();
         grid.draw();
+    }
+
+    onSerializeToSVG(event: MouseEvent): void {
+        event.stopPropagation();
+        this.form.get('svg').patchValue(this.canvas.toSVG());
     }
 }
