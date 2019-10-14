@@ -1,0 +1,58 @@
+<mat-card>
+    <form [formGroup]='form' (ngSubmit)='onSubmit(form)'>
+        <p>
+            <mat-label>Columns</mat-label>
+            <mat-slider
+                formControlName='columns'
+                thumbLabel
+                [displayWith]='formatNumber'
+                tickInterval='10'
+                min='10'
+                max='100'>
+            </mat-slider>
+        </p>
+        <p>
+            <mat-label>Rows</mat-label>
+            <mat-slider
+                formControlName='rows'
+                thumbLabel
+                [displayWith]='formatNumber'
+                tickInterval='10'
+                min='10'
+                max='100'>
+            </mat-slider>
+        </p>
+        <p>
+            <mat-label>Density</mat-label>
+            <mat-slider
+                formControlName='density'
+                thumbLabel
+                [displayWith]='formatPercentage'
+                tickInterval='1'
+                min='0'
+                max='100'>
+            </mat-slider>
+        </p>
+        <p>
+            <mat-label>Iterations</mat-label>
+            <mat-slider
+                formControlName='iterations'
+                thumbLabel
+                [displayWith]='formatIterations'
+                tickInterval='100'
+                min='0'
+                max='50000'>
+            </mat-slider>
+        </p>
+
+        <p>
+
+        </p>
+        <button mat-raised-button color='primary'>Generate!</button>
+    </form>
+</mat-card>
+
+<canvas
+    id='canvas'
+    style='border:1px solid #000;'
+></canvas>

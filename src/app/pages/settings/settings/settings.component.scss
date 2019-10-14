@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 5%;
+    width: 100%;
+    height: 100%;
+}
+
+p {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card {
+    width: 80%;
+    margin-bottom: 40px;
+}
+
+mat-slider {
+    width: 100%;
+}
