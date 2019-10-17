@@ -23,8 +23,8 @@ export class Matrix<T> {
         return (x >= 0 && x < this.columns && y >= 0 && y < this.rows);
     }
 
-    getCell(x, y): T {
-        return this.data[x][y];
+    getCell(y: number, x: number): T {
+        return this.data[y][x];
     }
 
     getNeighbourCells(xVal: number, yVal: number): Array<T> {
@@ -32,11 +32,11 @@ export class Matrix<T> {
 
         for (let x = -1; x < 2; x++) {
             for (let y = -1; y < 2; y++) {
-                const xCoord = xVal + x;
                 const yCoord = yVal + y;
+                const xCoord = xVal + x;
 
                 if (this.checkIsCoordLegal(xCoord, yCoord)) {
-                    neighbours.push(this.getCell(xCoord, yCoord));
+                    neighbours.push(this.getCell(yCoord, xCoord));
                 }
             }
         }
@@ -48,24 +48,24 @@ export class Matrix<T> {
         const randomX = random(0, this.columns - 1);
         const randomY = random(0, this.rows - 1);
 
-        return this.getCell(randomX, randomY);
+        return this.getCell(randomY, randomX);
     }
 
     forEachCell(callback: Function): void {
-        for (let x = 0; x < this.columns; x++) {
-            for (let y = 0; y < this.rows; y++) {
-                callback(this.data[x][y], x, y);
+        for (let y = 0; y < this.rows; y++) {
+            for (let x = 0; x < this.columns; x++) {
+                callback(this.data[y][x], y, x);
             }
         }
     }
 
-    populateCell(x: number, y: number, value: T): void {
-        this._data[x][y] = value;
+    populateCell(y: number, x: number, value: T): void {
+        this._data[y][x] = value;
     }
 
     populate(callback: Function): void {
-        this.forEachCell((cell, x, y) => {
-            this.populateCell(x, y, callback(cell, x, y));
+        this.forEachCell((cell, y, x) => {
+            this.populateCell(y, x, callback(cell, y, x));
         });
     }
 }

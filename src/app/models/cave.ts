@@ -40,7 +40,7 @@ export class Cave {
     generateMatrix(): Matrix<Cell> {
         const matrix: Matrix<Cell> = new Matrix(this.rows, this.columns);
 
-        matrix.populate((cell, x, y) => {
+        matrix.populate((cell, y, x) => {
             const randomNumber = random(0, 100);
             const empty = randomNumber < this.density;
 
@@ -124,39 +124,15 @@ export class Cave {
         );
     }
 
-    getRandomOffset() {
-        return random(0, this.cellSize / 3) * [1, -1][Math.round(Math.random())];
-    }
-
-    randomizeControlPoints(start: string, end: string): Array<Coord> {
-        const offset = this.cellSize / 6;
-        const startCoord = Coord.parseString(start);
-        const endCoord = Coord.parseString(end);
-        const [ xSmaller, xBigger ] = [startCoord.x, endCoord.x].sort((a, b) => a - b);
-        const [ ySmaller, yBigger ] = [startCoord.y, endCoord.y].sort((a, b) => a - b);
-
-        const one = new Coord(xSmaller + offset,  ySmaller + offset);
-        const two = new Coord(xBigger - offset, yBigger - offset);
-        const three = new Coord(xSmaller + offset, yBigger - offset);
-        const four = new Coord(xSmaller - offset, yBigger + offset);
-
-        const firstControlPoint = this.getRandomPointInTriangle(one, three, four);
-        const secondControlPoint = this.getRandomPointInTriangle(two, three, four);
-
-        return [firstControlPoint, secondControlPoint];
-    }
-
     generateCurvedTrianglePath({cell, triangle: [ start, middle, end ]}: {cell: Cell, triangle: Array<string>}) {
         const center = cell.center;
 
         if (start && middle && end) {
-            const [ firstControlPoint, secondControlPoint ] = this.randomizeControlPoints(start, end);
 
             return [
                 this.moveTo(start),
                 this.lineTo(middle),
                 this.lineTo(end),
-                // this.cubicCurveTo(firstControlPoint.stringify(), secondControlPoint.stringify(), start)
             ].join(' ') + 'z';
         }
 
